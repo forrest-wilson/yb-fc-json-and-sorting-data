@@ -22,7 +22,7 @@
             // *** Extra for the courageous:
             // Have the same function Punctuate the first letter of each name.
 
-            function arrayClean(array) {
+            function arrayClean(array, cap) {
                 var strArray = [];
 
                 for (i = 0; i < array.length; i++) {
@@ -35,13 +35,20 @@
 
                 strArray.sort();
 
+                if (cap === true) {
+                    // Capitalizes the first letter of each item in the array
+                    for (j = 0; j < strArray.length; j++) {
+                        strArray[j] = strArray[j].charAt(0).toUpperCase() + strArray[j].slice(1);
+                    }
+                }
+                
                 return strArray;
             }
 
-            var strArr = arrayClean(theArray);
+            var strArr = arrayClean(theArray, true);
             console.log(strArr);
 
-            
+
         })();
     </script>
 </body>
