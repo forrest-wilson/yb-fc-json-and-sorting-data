@@ -58,11 +58,14 @@
 
             // **Make all ui transitions and data updates smooth and visually pleasing  
 
+            // Variable Declarations
             var list1 = document.getElementById("list1"),
                 list2 = document.getElementById("list2"),
                 list3 = document.getElementById("list3"),
                 loading = document.getElementById("loading"),
                 showListButtons = document.getElementsByClassName("show-list-button"),
+                
+                // Custom UI object
                 ui = {
                     hide: (el) => {
                         el.style.display = "none";
@@ -89,8 +92,10 @@
                         }, speed);
                     }
                 },
+                // JSON URL
                 url = "https://jsonplaceholder.typicode.com/users";
 
+            // Event listeners for each button
             showListButtons[0].addEventListener("click", () => {
                 ui.show(list1);
                 ui.hide(list2);
@@ -117,20 +122,32 @@
 
             // AJAX Request function
             function getJSON(url, list, prop) {
+                // Define a new request
                 var xhr = new XMLHttpRequest;
 
+                // Animate the loading element on
                 ui.animateOn(loading, 300);
 
+                // JSON State change function
                 xhr.onreadystatechange = () => {
+
+                    // When the request is ready, run the if block
                     if (xhr.readyState === 4 && xhr.status === 200) {
+
+                        // Parse the JSON's responseText
                         var json = JSON.parse(xhr.responseText);
+
+                        // Fake loading time
                         setTimeout(() => {
                             jsonPubliciser(json, list, prop);
+
+                            // Animate the loading element off the page
                             ui.animateOff(loading, 300);
                         }, 1000);
                     }
                 }
 
+                // Open and send the AJAX request
                 xhr.open("GET", url);
                 xhr.send();
             }
