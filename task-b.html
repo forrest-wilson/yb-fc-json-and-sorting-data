@@ -6,31 +6,43 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>JSON and Sorting Data: Task B</title>
     <style>
-        #list2, #list3 {
+        #list1, #list2, #list3 {
             display: none;
+        }
+
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-color: rgba(22, 22, 22, 0.7);
+            opacity: 0;
+            display: none;
+        }
+
+        #loading img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            width: 100px;
+            height: 100px;
         }
     </style>
 </head>
 <body>
-    <button class="show-list-button">Show List 1</button>
-    <button class="show-list-button">Show List 2</button>
-    <button class="show-list-button">Show List 3</button>
+    <button class="show-list-button">Show JSON Names</button>
+    <button class="show-list-button">Show JSON Emails</button>
+    <button class="show-list-button">Show JSON Phone Number</button>
 
-    <ul id="list1">
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-    </ul>
-    <ul id="list2">
-        <li>4</li>
-        <li>5</li>
-        <li>6</li>
-    </ul>
-    <ul id="list3">
-        <li>7</li>
-        <li>8</li>
-        <li>9</li>
-    </ul>
+    <ul id="list1"></ul>
+    <ul id="list2"></ul>
+    <ul id="list3"></ul>
+
+    <div id="loading">
+        <img src="assets/load.gif" alt="" srcset="">
+    </div>
 
     <script>
         (function() {
@@ -49,6 +61,7 @@
             var list1 = document.getElementById("list1"),
                 list2 = document.getElementById("list2"),
                 list3 = document.getElementById("list3"),
+                loading = document.getElementById("loading"),
                 showListButtons = document.getElementsByClassName("show-list-button"),
                 ui = {
                     hide: (el) => {
@@ -57,15 +70,33 @@
                     show: (el, disp) => {
                         if (typeof disp === "undefined") disp = "block";
                         el.style.display = disp;
+                    },
+                    animateOn: (el, speed) => {
+                        if (typeof speed === "undefined") speed = 0;
+                        el.style.transition = speed + "ms";
+                        el.style.opacity = 0.0;
+                        ui.show(el);
+                        setTimeout(() => {
+                            el.style.opacity = 1.0;
+                        }, 10);
+                    },
+                    animateOff: (el, speed) => {
+                        if (typeof speed === "undefined") speed = 0;
+                        el.style.transition = speed + "ms";
+                        el.style.opacity = 0.0;
+                        setTimeout(() => {
+                            ui.hide(el);
+                        }, speed);
                     }
-                };
+                },
+                url = "https://jsonplaceholder.typicode.com/users";
 
             showListButtons[0].addEventListener("click", () => {
                 ui.show(list1);
                 ui.hide(list2);
                 ui.hide(list3);
 
-                getJSON();
+                getJSON(url, list1, "name");
             });
 
             showListButtons[1].addEventListener("click", () => {
@@ -73,7 +104,7 @@
                 ui.show(list2);
                 ui.hide(list3);
 
-                getJSON();
+                getJSON(url, list2, "email");
             });
 
             showListButtons[2].addEventListener("click", () => {
@@ -81,26 +112,41 @@
                 ui.hide(list2);
                 ui.show(list3);
 
-                getJSON();
+                getJSON(url, list3, "phone");
             });
 
-            function getJSON() {
-                var xhr = new XMLHttpRequest();
-                xhr.open("GET", "https://jsonplaceholder.typicode.com/users", true);
+            // AJAX Request function
+            function getJSON(url, list, prop) {
+                var xhr = new XMLHttpRequest;
 
-                xhr.onload = () => {
-                    if (xhr.status >= 200 && xhr.status < 400) {
-                        var data = JSON.parse(xhr.responseText);
-                    } else {
-                        console.log("else clause");
+                ui.animateOn(loading, 300);
+
+                xhr.onreadystatechange = () => {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        var json = JSON.parse(xhr.responseText);
+                        setTimeout(() => {
+                            jsonPubliciser(json, list, prop);
+                            ui.animateOff(loading, 300);
+                        }, 1000);
                     }
                 }
 
-                xhr.onerror = () => {
-                    console.log("error");
+                xhr.open("GET", url);
+                xhr.send();
+            }
+
+            function jsonPubliciser(jsonObj, list, prop) {
+                // console.log(jsonObj);
+                // Check whether the list has any children and empty the list if it does
+                if (list.children) {
+                    list.innerHTML = ""; // Empty the UL
                 }
 
-                xhr.send();
+                // Loop through the JSON Object
+                for (i = 0; i < jsonObj.length; i++) {
+                    // Append the jsonObj id prop and custom prop to the list prop
+                    list.innerHTML += "<li>" + jsonObj[i].id + "). " + jsonObj[i][prop] + "</li>";
+                }
             }
         })();
     </script>
