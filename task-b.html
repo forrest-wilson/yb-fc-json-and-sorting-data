@@ -64,19 +64,44 @@
                 ui.show(list1);
                 ui.hide(list2);
                 ui.hide(list3);
+
+                getJSON();
             });
 
             showListButtons[1].addEventListener("click", () => {
                 ui.hide(list1);
                 ui.show(list2);
                 ui.hide(list3);
+
+                getJSON();
             });
 
             showListButtons[2].addEventListener("click", () => {
                 ui.hide(list1);
                 ui.hide(list2);
                 ui.show(list3);
+
+                getJSON();
             });
+
+            function getJSON() {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "https://jsonplaceholder.typicode.com/users", true);
+
+                xhr.onload = () => {
+                    if (xhr.status >= 200 && xhr.status < 400) {
+                        var data = JSON.parse(xhr.responseText);
+                    } else {
+                        console.log("else clause");
+                    }
+                }
+
+                xhr.onerror = () => {
+                    console.log("error");
+                }
+
+                xhr.send();
+            }
         })();
     </script>
 </body>
