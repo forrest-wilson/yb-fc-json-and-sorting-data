@@ -5,8 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>JSON and Sorting Data: Task B</title>
+    <style>
+        #list2, #list3 {
+            display: none;
+        }
+    </style>
 </head>
 <body>
+    <button class="show-list-button">Show List 1</button>
+    <button class="show-list-button">Show List 2</button>
+    <button class="show-list-button">Show List 3</button>
+
+    <ul id="list1">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <ul id="list2">
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+    </ul>
+    <ul id="list3">
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+    </ul>
+
     <script>
         (function() {
             // 1.***
@@ -20,6 +45,38 @@
             // 2. Buttons such as 'a-z' and 'ascending - descending' should be in play.
 
             // **Make all ui transitions and data updates smooth and visually pleasing  
+
+            var list1 = document.getElementById("list1"),
+                list2 = document.getElementById("list2"),
+                list3 = document.getElementById("list3"),
+                showListButtons = document.getElementsByClassName("show-list-button"),
+                ui = {
+                    hide: (el) => {
+                        el.style.display = "none";
+                    },
+                    show: (el, disp) => {
+                        if (typeof disp === "undefined") disp = "block";
+                        el.style.display = disp;
+                    }
+                };
+
+            showListButtons[0].addEventListener("click", () => {
+                ui.show(list1);
+                ui.hide(list2);
+                ui.hide(list3);
+            });
+
+            showListButtons[1].addEventListener("click", () => {
+                ui.hide(list1);
+                ui.show(list2);
+                ui.hide(list3);
+            });
+
+            showListButtons[2].addEventListener("click", () => {
+                ui.hide(list1);
+                ui.hide(list2);
+                ui.show(list3);
+            });
         })();
     </script>
 </body>
