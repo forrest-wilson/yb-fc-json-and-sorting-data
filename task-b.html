@@ -29,6 +29,14 @@
             width: 100px;
             height: 100px;
         }
+
+        #table tr th {
+            padding: 10px 20px;
+        }
+
+        #table tr:nth-child(2n) {
+            background-color: lightgrey;
+        }
     </style>
 </head>
 <body>
@@ -40,8 +48,17 @@
     <ul id="list2"></ul>
     <ul id="list3"></ul>
 
+    <table id="table">
+        <tr id="headings">
+            <th>JSON ID</th>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Email</th>
+        </tr>
+    </table>
+
     <div id="loading">
-        <img src="assets/load.gif" alt="" srcset="">
+        <img src="assets/load.gif" alt="loading">
     </div>
 
     <script>
@@ -62,6 +79,7 @@
             var list1 = document.getElementById("list1"),
                 list2 = document.getElementById("list2"),
                 list3 = document.getElementById("list3"),
+                table = document.getElementById("table"),
                 loading = document.getElementById("loading"),
                 showListButtons = document.getElementsByClassName("show-list-button"),
                 
@@ -145,6 +163,7 @@
                         // Fake loading time
                         setTimeout(() => {
                             jsonPubliciser(json, list, prop);
+                            tablePop(json);
 
                             // Animate the loading element off the page
                             ui.animateOff(loading, 300);
@@ -161,8 +180,56 @@
             function jsonPubliciser(jsonObj, list, prop) {
                 // Loop through the JSON Object
                 for (i = 0; i < jsonObj.length; i++) {
-                    // Append the jsonObj id prop and custom prop to the list prop
-                    list.innerHTML += "<li>" + jsonObj[i].id + "). " + jsonObj[i][prop] + "</li>";
+
+                    // Create an li element and set its textContent
+                    var li = document.createElement("li");
+                    li.textContent = jsonObj[i].id + "). " + jsonObj[i][prop];
+
+                    list.appendChild(li);
+                }
+            }
+
+            // Populates a table with JSON data
+            function tablePop(jsonObj) {
+                for (i = 0; i < jsonObj.length; i++) {
+                    var newEl = document.createElement("tr");
+
+                    newEl.setAttribute("class", "json-value");
+                    table.appendChild(newEl);
+                }
+
+                var rows = document.getElementsByClassName("json-value");
+
+                for (i = 0; i < rows.length; i++) {
+                    var id = jsonObj[i].id,
+                        newCell = document.createElement("th");
+                    
+                    newCell.textContent = id;
+                    rows[i].appendChild(newCell);
+                }
+
+                for (i = 0; i < rows.length; i++) {
+                    var name = jsonObj[i].name,
+                        newCell = document.createElement("th");
+                    
+                    newCell.textContent = name;
+                    rows[i].appendChild(newCell);
+                }
+
+                for (i = 0; i < rows.length; i++) {
+                    var uname = jsonObj[i].username,
+                        newCell = document.createElement("th");
+                    
+                    newCell.textContent = uname;
+                    rows[i].appendChild(newCell);
+                }
+
+                for (i = 0; i < rows.length; i++) {
+                    var email = jsonObj[i].email,
+                        newCell = document.createElement("th");
+                    
+                    newCell.textContent = email;
+                    rows[i].appendChild(newCell);
                 }
             }
         })();
