@@ -50,7 +50,7 @@
 
     <table id="table">
         <tr id="headings">
-            <th>JSON ID</th>
+            <th>ID</th>
             <th>Name</th>
             <th>Username</th>
             <th>Email</th>
@@ -191,6 +191,8 @@
 
             // Populates a table with JSON data
             function tablePop(jsonObj) {
+                var rows = document.getElementsByClassName("json-value");
+
                 for (i = 0; i < jsonObj.length; i++) {
                     var newEl = document.createElement("tr");
 
@@ -198,38 +200,19 @@
                     table.appendChild(newEl);
                 }
 
-                var rows = document.getElementsByClassName("json-value");
+                popCells(rows, jsonObj, "id");
+                popCells(rows, jsonObj, "name");
+                popCells(rows, jsonObj, "username");
+                popCells(rows, jsonObj, "email");
+            }
 
-                for (i = 0; i < rows.length; i++) {
-                    var id = jsonObj[i].id,
+            function popCells(classList, obj, prop) {
+                for (i = 0; i < classList.length; i++) {
+                    var content = obj[i][prop],
                         newCell = document.createElement("th");
-                    
-                    newCell.textContent = id;
-                    rows[i].appendChild(newCell);
-                }
 
-                for (i = 0; i < rows.length; i++) {
-                    var name = jsonObj[i].name,
-                        newCell = document.createElement("th");
-                    
-                    newCell.textContent = name;
-                    rows[i].appendChild(newCell);
-                }
-
-                for (i = 0; i < rows.length; i++) {
-                    var uname = jsonObj[i].username,
-                        newCell = document.createElement("th");
-                    
-                    newCell.textContent = uname;
-                    rows[i].appendChild(newCell);
-                }
-
-                for (i = 0; i < rows.length; i++) {
-                    var email = jsonObj[i].email,
-                        newCell = document.createElement("th");
-                    
-                    newCell.textContent = email;
-                    rows[i].appendChild(newCell);
+                    newCell.textContent = content;
+                    classList[i].appendChild(newCell);
                 }
             }
         })();
