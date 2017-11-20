@@ -203,20 +203,21 @@
                     newEl.setAttribute("class", "json-value");
                     table.appendChild(newEl);
                 }
-
-                popCells(rows, jsonObj, "id");
-                popCells(rows, jsonObj, "name");
-                popCells(rows, jsonObj, "username");
-                popCells(rows, jsonObj, "email");
+                
+                popCells(rows, jsonObj, ["id", "name", "username", "email"]);
             }
 
             function popCells(classList, obj, prop) {
-                for (i = 0; i < classList.length; i++) {
-                    var content = obj[i][prop],
-                        newCell = document.createElement("th");
+                for (i = 0; i < prop.length; i++) {
+                    var iProp = prop[i];
 
-                    newCell.textContent = content;
-                    classList[i].appendChild(newCell);
+                    for (j = 0; j < classList.length; j++) {
+                        var content = obj[j][iProp],
+                            newCell = document.createElement("th");
+
+                        newCell.textContent = content;
+                        classList[j].appendChild(newCell);
+                    }
                 }
             }
         })();
