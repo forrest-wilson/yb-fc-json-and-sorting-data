@@ -153,6 +153,7 @@
                     list.innerHTML = ""; // Empty the UL
                 }
 
+                // Check whether the table has any json data and empty it if it does
                 if (table.children[1]) {
                     for (i = 0; i < table.children.length; i++) {
                         if (table.children[i].className === "json-value") {
