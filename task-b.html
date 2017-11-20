@@ -153,6 +153,15 @@
                     list.innerHTML = ""; // Empty the UL
                 }
 
+                if (table.children[1]) {
+                    for (i = 0; i < table.children.length; i++) {
+                        if (table.children[i].className === "json-value") {
+                            table.children[i].parentNode.removeChild(table.children[i]);
+                            i = 0;
+                        }
+                    }
+                }
+
                 // Animate the loading element on
                 ui.animateOn(loading, 300);
 
