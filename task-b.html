@@ -97,7 +97,7 @@
                         el.style.display = disp;
                     },
                     animateOn: (el, speed) => {
-                        if (typeof speed === "undefined") speed = 0;
+                        if (typeof speed === "undefined") speed = 250;
                         el.style.transition = speed + "ms";
                         el.style.opacity = 0.0;
                         ui.show(el);
