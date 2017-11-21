@@ -77,11 +77,12 @@
                 var colorfulDiv = document.getElementsByClassName("colorful-div");
 
                 for (i = 0; i < colorfulDiv.length; i++) {
-                    colorfulDiv[i].style.padding = "10px 10px";
-                    colorfulDiv[i].style.margin = "10px auto";
-                    colorfulDiv[i].style.display = "block";
-                    colorfulDiv[i].style.width = "50%";
-                    colorfulDiv[i].style.borderRadius = "5px";
+                    var style = colorfulDiv[i].style;
+                    style.padding = "10px 10px";
+                    style.margin = "10px auto";
+                    style.display = "block";
+                    style.width = "50%";
+                    style.borderRadius = "5px";
                 }
             }
         })();
