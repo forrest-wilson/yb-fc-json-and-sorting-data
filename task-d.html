@@ -57,7 +57,10 @@
                 for (i = 0; i < jsonObj.length; i++) {
                     var div = createEl("div"),
                         name = createEl("p"),
-                        email = createEl("p");
+                        email = createEl("p"),
+                        username = jsonObj[i]["username"].toLowerCase();
+
+                    div.classList.add(username);
 
                     name.textContent = jsonObj[i]["name"];
                     email.textContent = jsonObj[i]["email"];
