@@ -55,15 +55,17 @@
             function jsonPubliciser(jsonObj) {
                 // Loop through the JSON Object
                 for (i = 0; i < jsonObj.length; i++) {
-                    var div = createEl("div"),
+                    var index = jsonObj[i],
+                        colorArray = ["blue", "red", "lightblue", "green", "grey", "yellow", "purple", "cyan", "orange", "pink"];
+                        div = createEl("div"),
                         name = createEl("p"),
                         email = createEl("p"),
-                        username = jsonObj[i]["username"].toLowerCase();
+                        username = index["username"].toLowerCase();
 
                     div.classList.add(username);
 
-                    name.textContent = jsonObj[i]["name"];
-                    email.textContent = jsonObj[i]["email"];
+                    name.textContent = index["name"];
+                    email.textContent = index["email"];
 
                     div.appendChild(name);
                     div.appendChild(email);
