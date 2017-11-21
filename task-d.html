@@ -56,13 +56,14 @@
                 // Loop through the JSON Object
                 for (i = 0; i < jsonObj.length; i++) {
                     var index = jsonObj[i],
-                        colorArray = ["blue", "red", "lightblue", "green", "grey", "yellow", "purple", "cyan", "orange", "pink"];
+                        colorArray = ["blue", "red", "lightblue", "green", "grey", "yellow", "purple", "cyan", "orange", "pink"],
                         div = createEl("div"),
                         name = createEl("p"),
                         email = createEl("p"),
                         username = index["username"].toLowerCase();
 
                     div.classList.add(username);
+                    div.style.backgroundColor = colorArray[i];
 
                     name.textContent = index["name"];
                     email.textContent = index["email"];
