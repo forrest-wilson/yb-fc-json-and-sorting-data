@@ -59,6 +59,11 @@
                         name = createEl("p"),
                         email = createEl("p");
 
+                    name.textContent = jsonObj[i]["name"];
+                    email.textContent = jsonObj[i]["email"];
+
+                    div.appendChild(name);
+                    div.appendChild(email);
                     body.appendChild(div);
                 }
             }
