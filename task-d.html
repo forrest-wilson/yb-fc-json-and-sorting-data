@@ -63,6 +63,7 @@
                         username = index["username"].toLowerCase();
 
                     div.classList.add(username);
+                    div.classList.add("colorful-div");
                     div.style.backgroundColor = colorArray[i];
 
                     name.textContent = index["name"];
@@ -71,6 +72,16 @@
                     div.appendChild(name);
                     div.appendChild(email);
                     body.appendChild(div);
+                }
+
+                var colorfulDiv = document.getElementsByClassName("colorful-div");
+
+                for (i = 0; i < colorfulDiv.length; i++) {
+                    colorfulDiv[i].style.padding = "10px 10px";
+                    colorfulDiv[i].style.margin = "10px auto";
+                    colorfulDiv[i].style.display = "block";
+                    colorfulDiv[i].style.width = "50%";
+                    colorfulDiv[i].style.borderRadius = "5px";
                 }
             }
         })();
