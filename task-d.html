@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JSON and Sorting Data: Task D</title>
+</head>
+<body>
+    <script>
+        (function() {
+            // 1. Connect to https://jsonplaceholder.typicode.com/users with ajax.
+
+            // 2. Use the data to create 10 different divs for each user.
+
+            // 3. Each div should display the users FULL NAME & Email address.
+
+            // 4. Use each user's 'username' as the css class for each div.
+            // And style each div with a different background color or css
+            // value/s representing each class.
+
+            var body = document.getElementsByTagName("body")[0],
+                url = "http://localhost:3000/users";
+
+            function createEl(elToCreate) {
+                var el = document.createElement(elToCreate);
+
+                return el;
+            }
+
+            getJSON(url);
+
+            // AJAX Request function
+            function getJSON(url) {
+                // Define a new request
+                var xhr = new XMLHttpRequest;
+
+                // JSON State change function
+                xhr.onreadystatechange = () => {
+
+                    // When the request is ready, run the if block
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+
+                        // Parse the JSON's responseText
+                        var json = JSON.parse(xhr.responseText);
+
+                        jsonPubliciser(json);
+                    }
+                }
+
+                // Open and send the AJAX request
+                xhr.open("GET", url);
+                xhr.send();
+            }
+
+            // Uses the AJAX JSON response
+            function jsonPubliciser(jsonObj) {
+                // Loop through the JSON Object
+                for (i = 0; i < jsonObj.length; i++) {
+                    var div = createEl("div"),
+                        name = createEl("p"),
+                        email = createEl("p");
+
+                    body.appendChild(div);
+                }
+            }
+        })();
+    </script>
+</body>
+</html>
